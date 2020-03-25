@@ -7,6 +7,7 @@ class QWidget;
 #include <QTabWidget>
 #include <QDialog>
 #include <QFileInfo>
+#include "station.h"
 
 class MainForm : public QDialog
 {
@@ -15,13 +16,15 @@ public:
     explicit MainForm(QWidget* parent = 0);
 
 public slots:
-    void navigateToFile();
+    void attemptStationLoad();
 
 private:
     QTabWidget *tabWidget;
     QPushButton *selectFile;
+    bool fileSuccess(QString &filePath);
+    Station* station;
+    bool readStationData(QString filePath);
 
-    void populate(QFileInfo fileinfo);
 
 };
 

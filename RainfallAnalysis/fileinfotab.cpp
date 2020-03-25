@@ -2,14 +2,15 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QDebug>
 
 
 FileInfoTab::FileInfoTab(QString name, QWidget *parent) : QWidget(parent)
 {
     setObjectName(name);
 
-    QLabel *fileNameLabel = new QLabel(tr("File Name:"));
-    QLineEdit *fileNameEdit = new QLineEdit();
+    fileNameLabel = new QLabel(tr("File Name:"));
+    fileNameEdit = new QLineEdit();
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(fileNameLabel);
     mainLayout->addWidget(fileNameEdit);
@@ -19,5 +20,6 @@ FileInfoTab::FileInfoTab(QString name, QWidget *parent) : QWidget(parent)
 
 void FileInfoTab::populate(QFileInfo fileInfo)
 {
-
+    fileNameEdit->setText(fileInfo.fileName());
+    qDebug() << "we got here: " << fileInfo.fileName();
 }

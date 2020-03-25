@@ -2,11 +2,13 @@
 #include "fileinfotab.h"
 #include <QVBoxLayout>
 #include <QFileDialog>
+#include <QDebug>
 
 MainForm::MainForm(QWidget *parent): QDialog(parent)
 {
+    station = nullptr;
     tabWidget = new QTabWidget();
-    tabWidget->addTab(new FileInfoTab("fileinfo"), tr("File Info"));
+    tabWidget->addTab(new FileInfoTab("fileInfo"), tr("File Info"));
     selectFile = new QPushButton(tr("Select file"));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -14,23 +16,53 @@ MainForm::MainForm(QWidget *parent): QDialog(parent)
     mainLayout->addWidget(selectFile);
     setLayout(mainLayout);//this sorts out parentage
 
-    connect(selectFile, SIGNAL (released()), this, SLOT (navigateToFile()));
+    connect(selectFile, SIGNAL (released()), this, SLOT (attemptStationLoad()));
 
 }
 
-void MainForm::navigateToFile()
-{
-    QString filePath = QFileDialog::getOpenFileName(this, "Get Any File");
-    if (!filePath.isEmpty())
-        populate(QFileInfo(filePath));
 
+bool MainForm::fileSuccess(QString &filePath)
+{
+    filePath = QFileDialog::getOpenFileName(this, "Get Any File");
+    return (!filePath.isEmpty());
 }
 
-void MainForm::populate(QFileInfo fileinfo)
+bool MainForm::readStationData(QString filePath)
 {
-    QString childName = "fileInfo";
-    FileInfoTab* fileInfoTab = findChild<FileInfoTab*>("fileInfo");
-    if (fileInfoTab)
-        fileInfoTab->populate(fileinfo);
+    QFile inputFile(filePath);
+    if (inputFile.open(QIODevice::ReadOnly))
+    {
+        QTextStream in(&inputFile);
+        QString line = in.readLine();
+           while (line.left(4) != "DATE" && !in.atEnd())
+           {
+              qDebug()<<line<<'\n';
+               line = in.readLine();
+              //...
+           }
+           inputFile.close();
+           return true;
+    }
+    return false;
+}
+
+void MainForm::attemptStationLoad()
+{
+    QString filepath;
+    if(fileSuccess(filepath))
+    {
+        if (station) delete station;
+        station = new Station(this);
+
+        readStationData(filepath);
+
+
+        QString childName = "fileInfo";
+        FileInfoTab* fileInfoTab = findChild<FileInfoTab*>("fileInfo");
+        if (fileInfoTab)
+            fileInfoTab->populate(QFileInfo(filepath));
+
+    }
+
 
 }
