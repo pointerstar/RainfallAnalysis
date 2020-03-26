@@ -38,8 +38,24 @@ bool MainForm::readStationData(QString filePath)
            {
               qDebug()<<line<<'\n';
                line = in.readLine();
-              //...
            }
+
+           QString date;
+           double rainfall;
+           int qual;
+
+           while (!in.atEnd())
+           {
+               in >> date;
+               in >> rainfall;
+               in >> qual;
+               DayRainRec rec;
+               rec.day = QDate::fromString(date, "yyyyMMdd");
+               rec.rain = rainfall;
+               rec.qualCode = qual;
+               station->addRecord(rec);
+           }
+
            inputFile.close();
            return true;
     }
@@ -54,15 +70,12 @@ void MainForm::attemptStationLoad()
         if (station) delete station;
         station = new Station(this);
 
-        readStationData(filepath);
-
-
-        QString childName = "fileInfo";
-        FileInfoTab* fileInfoTab = findChild<FileInfoTab*>("fileInfo");
-        if (fileInfoTab)
-            fileInfoTab->populate(QFileInfo(filepath));
-
+        if(readStationData(filepath))
+        {
+            QString childName = "fileInfo";
+            FileInfoTab* fileInfoTab = findChild<FileInfoTab*>("fileInfo");
+            if (fileInfoTab)
+                fileInfoTab->populate(QFileInfo(filepath));
+        }
     }
-
-
 }

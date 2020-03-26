@@ -19,13 +19,11 @@ public slots:
     void attemptStationLoad();
 
 private:
+    Station* station;
     QTabWidget *tabWidget;
     QPushButton *selectFile;
     bool fileSuccess(QString &filePath);
-    Station* station;
     bool readStationData(QString filePath);
-
-
 };
 
 #endif // MAINFORM_H

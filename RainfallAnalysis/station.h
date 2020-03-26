@@ -17,6 +17,7 @@ class Station : public QObject
     Q_OBJECT
 public:
     explicit Station(QObject *parent = nullptr);
+    void addRecord(DayRainRec r);
 
 private:
     QString stationName;

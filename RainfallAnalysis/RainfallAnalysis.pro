@@ -4,10 +4,12 @@ QT += widgets
 HEADERS += \
     station.h \
     mainform.h \
-    fileinfotab.h
+    fileinfotab.h \
+    graphtab.h
 
 SOURCES += \
     station.cpp \
     main.cpp \
     mainform.cpp \
-    fileinfotab.cpp
+    fileinfotab.cpp \
+    graphtab.cpp
