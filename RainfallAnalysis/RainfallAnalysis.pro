@@ -1,5 +1,6 @@
 QT += core gui
 QT += widgets
+QT += charts
 
 HEADERS += \
     station.h \

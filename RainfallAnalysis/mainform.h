@@ -14,6 +14,7 @@ class MainForm : public QDialog
     Q_OBJECT
 public:
     explicit MainForm(QWidget* parent = 0);
+    Station* getStation();
 
 public slots:
     void attemptStationLoad();

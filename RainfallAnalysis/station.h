@@ -18,10 +18,15 @@ class Station : public QObject
 public:
     explicit Station(QObject *parent = nullptr);
     void addRecord(DayRainRec r);
+    void addDay(int month);
+    void addRain(int month, double rain);
+    double* getMonthlyAverages(double *rain) const;
 
 private:
     QString stationName;
     QList<DayRainRec> dataset;
+    int monthCount[12];
+    double monthRain[12];
 
 };
 

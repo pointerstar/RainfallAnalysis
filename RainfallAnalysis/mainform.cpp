@@ -20,6 +20,11 @@ MainForm::MainForm(QWidget *parent): QDialog(parent)
 
 }
 
+Station *MainForm::getStation()
+{
+    return station;
+}
+
 
 bool MainForm::fileSuccess(QString &filePath)
 {
@@ -54,6 +59,12 @@ bool MainForm::readStationData(QString filePath)
                rec.rain = rainfall;
                rec.qualCode = qual;
                station->addRecord(rec);
+
+               if(rec.qualCode == 1)
+               {
+                    station->addDay(rec.day.month());
+                    station->addRain(rec.day.month(), rec.rain);
+               }
            }
 
            inputFile.close();

@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_CHARTS_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../RainfallAnalysis -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../RainfallAnalysis -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtCharts -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = RainfallAnalysis1.0.0
 DISTDIR = /home/nicholas/Programming/RainfallAnalysis/build-RainfallAnalysis-Desktop-Debug/.tmp/RainfallAnalysis1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -lQt5Charts -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,16 +53,20 @@ OBJECTS_DIR   = ./
 SOURCES       = ../RainfallAnalysis/station.cpp \
 		../RainfallAnalysis/main.cpp \
 		../RainfallAnalysis/mainform.cpp \
-		../RainfallAnalysis/fileinfotab.cpp moc_station.cpp \
+		../RainfallAnalysis/fileinfotab.cpp \
+		../RainfallAnalysis/graphtab.cpp moc_station.cpp \
 		moc_mainform.cpp \
-		moc_fileinfotab.cpp
+		moc_fileinfotab.cpp \
+		moc_graphtab.cpp
 OBJECTS       = station.o \
 		main.o \
 		mainform.o \
 		fileinfotab.o \
+		graphtab.o \
 		moc_station.o \
 		moc_mainform.o \
-		moc_fileinfotab.o
+		moc_fileinfotab.o \
+		moc_graphtab.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -74,6 +78,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
@@ -139,10 +144,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../RainfallAnalysis/RainfallAnalysis.pro ../RainfallAnalysis/station.h \
 		../RainfallAnalysis/mainform.h \
-		../RainfallAnalysis/fileinfotab.h ../RainfallAnalysis/station.cpp \
+		../RainfallAnalysis/fileinfotab.h \
+		../RainfallAnalysis/graphtab.h ../RainfallAnalysis/station.cpp \
 		../RainfallAnalysis/main.cpp \
 		../RainfallAnalysis/mainform.cpp \
-		../RainfallAnalysis/fileinfotab.cpp
+		../RainfallAnalysis/fileinfotab.cpp \
+		../RainfallAnalysis/graphtab.cpp
 QMAKE_TARGET  = RainfallAnalysis
 DESTDIR       = 
 TARGET        = RainfallAnalysis
@@ -165,6 +172,7 @@ Makefile: ../RainfallAnalysis/RainfallAnalysis.pro /usr/lib/x86_64-linux-gnu/qt5
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
@@ -229,6 +237,7 @@ Makefile: ../RainfallAnalysis/RainfallAnalysis.pro /usr/lib/x86_64-linux-gnu/qt5
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../RainfallAnalysis/RainfallAnalysis.pro \
+		/usr/lib/x86_64-linux-gnu/libQt5Charts.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
@@ -244,6 +253,7 @@ Makefile: ../RainfallAnalysis/RainfallAnalysis.pro /usr/lib/x86_64-linux-gnu/qt5
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri:
@@ -308,6 +318,7 @@ Makefile: ../RainfallAnalysis/RainfallAnalysis.pro /usr/lib/x86_64-linux-gnu/qt5
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 ../RainfallAnalysis/RainfallAnalysis.pro:
+/usr/lib/x86_64-linux-gnu/libQt5Charts.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
@@ -326,8 +337,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../RainfallAnalysis/station.h ../RainfallAnalysis/mainform.h ../RainfallAnalysis/fileinfotab.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../RainfallAnalysis/station.cpp ../RainfallAnalysis/main.cpp ../RainfallAnalysis/mainform.cpp ../RainfallAnalysis/fileinfotab.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../RainfallAnalysis/station.h ../RainfallAnalysis/mainform.h ../RainfallAnalysis/fileinfotab.h ../RainfallAnalysis/graphtab.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../RainfallAnalysis/station.cpp ../RainfallAnalysis/main.cpp ../RainfallAnalysis/mainform.cpp ../RainfallAnalysis/fileinfotab.cpp ../RainfallAnalysis/graphtab.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -359,23 +370,30 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_station.cpp moc_mainform.cpp moc_fileinfotab.cpp
+compiler_moc_header_make_all: moc_station.cpp moc_mainform.cpp moc_fileinfotab.cpp moc_graphtab.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_station.cpp moc_mainform.cpp moc_fileinfotab.cpp
+	-$(DEL_FILE) moc_station.cpp moc_mainform.cpp moc_fileinfotab.cpp moc_graphtab.cpp
 moc_station.cpp: ../RainfallAnalysis/station.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/station.h -o moc_station.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/station.h -o moc_station.cpp
 
-moc_mainform.cpp: ../RainfallAnalysis/mainform.h \
+moc_mainform.cpp: ../RainfallAnalysis/station.h \
+		../RainfallAnalysis/mainform.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/mainform.h -o moc_mainform.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/mainform.h -o moc_mainform.cpp
 
 moc_fileinfotab.cpp: ../RainfallAnalysis/fileinfotab.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/fileinfotab.h -o moc_fileinfotab.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/fileinfotab.h -o moc_fileinfotab.cpp
+
+moc_graphtab.cpp: ../RainfallAnalysis/station.h \
+		../RainfallAnalysis/graphtab.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicholas/Programming/RainfallAnalysis/RainfallAnalysis -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../RainfallAnalysis/graphtab.h -o moc_graphtab.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -394,15 +412,23 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 station.o: ../RainfallAnalysis/station.cpp ../RainfallAnalysis/station.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o station.o ../RainfallAnalysis/station.cpp
 
-main.o: ../RainfallAnalysis/main.cpp ../RainfallAnalysis/mainform.h
+main.o: ../RainfallAnalysis/main.cpp ../RainfallAnalysis/mainform.h \
+		../RainfallAnalysis/station.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../RainfallAnalysis/main.cpp
 
 mainform.o: ../RainfallAnalysis/mainform.cpp ../RainfallAnalysis/mainform.h \
+		../RainfallAnalysis/station.h \
 		../RainfallAnalysis/fileinfotab.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainform.o ../RainfallAnalysis/mainform.cpp
 
-fileinfotab.o: ../RainfallAnalysis/fileinfotab.cpp ../RainfallAnalysis/fileinfotab.h
+fileinfotab.o: ../RainfallAnalysis/fileinfotab.cpp ../RainfallAnalysis/fileinfotab.h \
+		../RainfallAnalysis/mainform.h \
+		../RainfallAnalysis/station.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fileinfotab.o ../RainfallAnalysis/fileinfotab.cpp
+
+graphtab.o: ../RainfallAnalysis/graphtab.cpp ../RainfallAnalysis/graphtab.h \
+		../RainfallAnalysis/station.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o graphtab.o ../RainfallAnalysis/graphtab.cpp
 
 moc_station.o: moc_station.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_station.o moc_station.cpp
@@ -412,6 +438,9 @@ moc_mainform.o: moc_mainform.cpp
 
 moc_fileinfotab.o: moc_fileinfotab.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_fileinfotab.o moc_fileinfotab.cpp
+
+moc_graphtab.o: moc_graphtab.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_graphtab.o moc_graphtab.cpp
 
 ####### Install
 
