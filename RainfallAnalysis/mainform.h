@@ -14,17 +14,15 @@ class MainForm : public QDialog
     Q_OBJECT
 public:
     explicit MainForm(QWidget* parent = 0);
-    Station* getStation();
 
 public slots:
     void attemptStationLoad();
 
 private:
-    Station* station;
     QTabWidget *tabWidget;
     QPushButton *selectFile;
     bool fileSuccess(QString &filePath);
-    bool readStationData(QString filePath);
+    bool readStationData(QString filePath, Station* stat);
 };
 
 #endif // MAINFORM_H

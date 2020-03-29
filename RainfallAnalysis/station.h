@@ -20,7 +20,7 @@ public:
     void addRecord(DayRainRec r);
     void addDay(int month);
     void addRain(int month, double rain);
-    double* getMonthlyAverages(double *rain) const;
+    QList<double> getMonthlyAverages() const;
 
 private:
     QString stationName;

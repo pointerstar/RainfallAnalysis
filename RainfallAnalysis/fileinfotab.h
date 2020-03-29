@@ -4,18 +4,19 @@
 #include <QFileInfo>
 #include <QLineEdit>
 #include <QLabel>
+#include "station.h"
 
 class FileInfoTab : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit FileInfoTab(QString name, QWidget *parent = 0);
-    void populate(QFileInfo fileinfo);
+    explicit FileInfoTab(Station* stat, QFileInfo finfo, QWidget *parent = 0);
 
 private:
     QLineEdit *fileNameEdit;
     QLabel *fileNameLabel;
+    Station* station;
 };
 
 #endif // FILEINFOTAB_H

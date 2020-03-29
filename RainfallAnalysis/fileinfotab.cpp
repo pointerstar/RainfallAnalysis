@@ -8,15 +8,10 @@
 #include <QtCharts>
 
 
-FileInfoTab::FileInfoTab(QString name, QWidget *parent) : QWidget(parent)
+FileInfoTab::FileInfoTab(Station *stat, QFileInfo fileInfo, QWidget *parent): QWidget(parent)
 {
-    setObjectName(name);
-
-
-}
-
-void FileInfoTab::populate(QFileInfo fileInfo)
-{
+    station = stat;
+    //station->setParent(this);
     fileNameLabel = new QLabel(tr("File Name:"));
     fileNameEdit = new QLineEdit();
     fileNameEdit->setText(fileInfo.fileName());
@@ -27,13 +22,11 @@ void FileInfoTab::populate(QFileInfo fileInfo)
 
     QBarSet *set = new QBarSet("Average monthly rainfall");
 
-    Station* station = static_cast<MainForm*>(this->parent())->getStation();
-    double rain[12];
-    station->getMonthlyAverages(rain);
+    //QList<double> rain = station->getMonthlyAverages();
 
     for(int i = 0; i < 12; i++)
     {
-        set->append(rain[i]);
+        set->append(i);
     }
 
     QChart *chart = new QChart();
@@ -60,6 +53,5 @@ void FileInfoTab::populate(QFileInfo fileInfo)
     mainLayout->addStretch(1);
     mainLayout->addWidget(chartView);
     setLayout(mainLayout);
-
-
 }
+

@@ -6,25 +6,10 @@
 
 MainForm::MainForm(QWidget *parent): QDialog(parent)
 {
-    station = nullptr;
-    tabWidget = new QTabWidget();
-    tabWidget->addTab(new FileInfoTab("fileInfo"), tr("File Info"));
     selectFile = new QPushButton(tr("Select file"));
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(tabWidget);
-    mainLayout->addWidget(selectFile);
-    setLayout(mainLayout);//this sorts out parentage
-
+    selectFile->setParent(this);
     connect(selectFile, SIGNAL (released()), this, SLOT (attemptStationLoad()));
-
 }
-
-Station *MainForm::getStation()
-{
-    return station;
-}
-
 
 bool MainForm::fileSuccess(QString &filePath)
 {
@@ -32,7 +17,7 @@ bool MainForm::fileSuccess(QString &filePath)
     return (!filePath.isEmpty());
 }
 
-bool MainForm::readStationData(QString filePath)
+bool MainForm::readStationData(QString filePath, Station *stat)
 {
     QFile inputFile(filePath);
     if (inputFile.open(QIODevice::ReadOnly))
@@ -49,6 +34,8 @@ bool MainForm::readStationData(QString filePath)
            double rainfall;
            int qual;
 
+           stat = new Station();
+
            while (!in.atEnd())
            {
                in >> date;
@@ -58,12 +45,12 @@ bool MainForm::readStationData(QString filePath)
                rec.day = QDate::fromString(date, "yyyyMMdd");
                rec.rain = rainfall;
                rec.qualCode = qual;
-               station->addRecord(rec);
+               stat->addRecord(rec);
 
                if(rec.qualCode == 1)
                {
-                    station->addDay(rec.day.month());
-                    station->addRain(rec.day.month(), rec.rain);
+                    stat->addDay(rec.day.month());
+                    stat->addRain(rec.day.month(), rec.rain);
                }
            }
 
@@ -75,18 +62,18 @@ bool MainForm::readStationData(QString filePath)
 
 void MainForm::attemptStationLoad()
 {
+    Station* station;
     QString filepath;
     if(fileSuccess(filepath))
     {
-        if (station) delete station;
-        station = new Station(this);
-
-        if(readStationData(filepath))
+        if(readStationData(filepath, station) && station)
         {
-            QString childName = "fileInfo";
-            FileInfoTab* fileInfoTab = findChild<FileInfoTab*>("fileInfo");
-            if (fileInfoTab)
-                fileInfoTab->populate(QFileInfo(filepath));
+           tabWidget = new QTabWidget;
+            FileInfoTab* graph = new FileInfoTab(station, QFileInfo(filepath));
+            tabWidget->addTab(graph, tr("Station"));
+            QVBoxLayout *mainLayout = new QVBoxLayout;
+                mainLayout->addWidget(tabWidget);
+                setLayout(mainLayout);
         }
     }
 }

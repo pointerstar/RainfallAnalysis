@@ -5,12 +5,10 @@ QT += charts
 HEADERS += \
     station.h \
     mainform.h \
-    fileinfotab.h \
-    graphtab.h
+    fileinfotab.h
 
 SOURCES += \
     station.cpp \
     main.cpp \
     mainform.cpp \
-    fileinfotab.cpp \
-    graphtab.cpp
+    fileinfotab.cpp
